@@ -40,11 +40,15 @@ class BP_Member_Type_Generator_Actions {
 			'labels'				=> array(
 				'name'					=> __( 'BP Member Types', 'bp-member-type-generator' ),
 				'singular_name'			=> __( 'BP Member Type', 'bp-member-type-generator' ),
+				'add_new_item'			=> __( 'New Member Type', 'bp-member-type-generator' ),
+				'new_item'				=> __( 'New Member Type', 'bp-member-type-generator' ),
+				'edit_item'				=> __( 'Edit Member Type', 'bp-member-type-generator' ),
+				'search_items'			=> __( 'Search Member Types', 'bp-member-type-generator' ),
 				'not_found_in_trash'	=> __( 'No Member Types found in trash', 'bp-member-type-generator' ),
 				'not_found'				=> __( 'No Member Type found', 'bp-member-type-generator' )
 			),
 			
-			'public'				=> false,//this is a private post type, nt accesible from front end
+			'public'				=> false,//this is a private post type, not accesible from front end
 			'show_ui'				=> true,
 			'show_in_menu'			=> true,
 			'menu_position'			=> 60,
