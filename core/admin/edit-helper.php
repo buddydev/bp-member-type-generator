@@ -35,6 +35,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 		add_action( 'save_post', array( $this, 'save_post' ) );
 
 		add_action( 'add_meta_boxes', array( $this, 'register_metabox' ) );
+		add_filter( 'post_updated_messages', array( $this, 'filter_update_messages' ) );
 		
 	}
 	
@@ -131,7 +132,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 		color: #eee;
 		padding: 5px;*/
 		margin-top: -15px;
-		color:  #00A0D2;
+		color:  #339C8A;
 	}
 	
 </style>
@@ -171,6 +172,9 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 		if( $post->post_type != $this->post_type )
 				return ;
 		
+		if( ! isset( $_POST['_bp-member-type-generator-nonce'] ) )
+			return ;//most probably the new member type screen
+			
 		//verify nonce
 		if( ! wp_verify_nonce( $_POST['_bp-member-type-generator-nonce'], 'bp-member-type-generator-edit-member-type' ) )
 				return ;
@@ -212,6 +216,26 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 			
 			delete_post_meta( $post_id, '_bp_member_type_directory_slug' );
 		}
+	}
+	
+
+	public function filter_update_messages( $messages ) {
+		
+	  global $post, $post_ID;
+
+	  $update_message =  $messages['post'];//make a copy of the post update message
+	  
+	  $update_message[1] = sprintf( __( 'Member type updated.', 'bp-member-type-generator' ) );
+	 
+	  $update_message[4] = __( 'Member type updated.', 'bp-member-type-generator' );
+	  
+	  $update_message[6] = sprintf( __( 'Member type published. ', 'bp-member-type-generator' ) );
+	
+	  $update_message[7] = __( 'Member type  saved.', 'bp-member-type-generator' );
+	  
+	  $messages[$this->post_type] = $update_message;
+	  
+	  return $messages;
 	}
 	
 }
