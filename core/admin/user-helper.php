@@ -71,7 +71,8 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 			return;
 		}
 		
-		$output = '<div class="alignright" id="bp-member-type-change-action"><label for="new_member_type" class="screen-reader-text">' . __( 'Change member type to…', 'bp-member-type-generator' ) . '</label>
+		$output = '<div class="alignright" id="bp-member-type-change-action">'
+				. '<label for="new_member_type" class="screen-reader-text">' . __( 'Change member type to…', 'bp-member-type-generator' ) . '</label>
 					<select id="new_member_type" name="new_member_type">
 					<option value="">'. __( 'Change member type to…', 'bp-member-type-generator' ) . '</option>';
 		
