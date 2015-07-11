@@ -1,17 +1,18 @@
-=== BP Member type Generator ===
+=== BP Member Type Generator ===
 Contributors: buddydev,sbrajesh
-Tags: buddypress, member-type
+Tags: buddypress, member-type, bp-member-type
 Requires at least: 4.0
 Tested up to: 4.2
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-BuddyPress Member Type generator allows ite admins to create/manage member types from dashboard
+BuddyPress Member Type generator allows site admins to create/manage member types from dashboard
 
 == Description ==
 
-BuddyPress Member type generator allows site admins to create and manage member types from dashboard. A member type can be easily created, activated and deactivated from admin dashboard.
+BuddyPress Member Type generator allows site admins to create and manage member types from dashboard.
+A member type can be easily created, activated and deactivated from admin dashboard.
 
 Features:
 
@@ -19,13 +20,17 @@ Features:
 *   Bulk assign member type to users from the users list screen
 *   A member type can be marked active/deactive from the edit member type page
 
+**Support**
+
+Though we will keep an eye here, we may not be able to support via wordpress.org forums. For support, please consider using [BuddyDev Premium Forum](http://buddydev.com/support/forums/) or let us know your feedback via [blog comment](http://buddydev.com/buddypress/introducing-buddypress-member-type-generator/).
+
 == Installation ==
 
 1. Download `bp-member-type-generator-x.y.z.zip` , x.y.z are version numbers eg. 1.0.0
 1. Extract the zip file
 1. Upload `bp-member-type-generator` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Visit Dashboard->BP Member types to add/edit/delete member types
+1. Visit Dashboard->BP Member Types to add/edit/delete member types
 
 == Frequently Asked Questions ==
 
@@ -55,5 +60,4 @@ Want to know more about BuddyPress Member Type, please check this codex article 
 
 Need even more details, visit my post on using [BuddyPress Member type as Pro]( http://buddydev.com/buddypress/using-buddypress-member-type-as-pro/)
 
-Also, I will appreciate your suggestions and comments on the [plugin release post]( http://buddydev.com/buddypress/introduding-bp-member-type-generator-plugin/) 
-
+Also, I will appreciate your suggestions and comments on the [plugin release post]( http://buddydev.com/buddypress/introduding-bp-member-type-generator-plugin/)
