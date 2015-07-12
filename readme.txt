@@ -51,6 +51,9 @@ Yes.
 
 == Changelog ==
 
+= 1.0.1 =
+* Fix the directory url.
+
 = 1.0.0 =
 * Initial release.
 * Supports BuddyPress 2.2 and BuddyPress 2.3.

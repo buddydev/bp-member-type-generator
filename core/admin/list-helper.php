@@ -116,8 +116,9 @@ class BP_Member_Generator_Admin_List_Helper {
 				
 				if( ! $directory_slug )
 					$directory_slug = get_post_meta( $post_id, '_bp_member_type_name', true );
-				
-				echo trailingslashit( get_permalink( buddypress()->pages->members->id ) ) . $directory_slug;   
+				//get the type slug, do not change text domain as it will get the actual one from BuddyPress translated file
+				$type_slug = apply_filters( 'bp_members_member_type_base', _x( 'type', 'member type URL base', 'buddypress' ) );
+				echo trailingslashit( get_permalink( buddypress()->pages->members->id ) ) . $type_slug . '/' . $directory_slug;   
 		
 				break;
 			
