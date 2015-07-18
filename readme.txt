@@ -1,8 +1,8 @@
 === BP Member Type Generator ===
 Contributors: buddydev,sbrajesh
 Tags: buddypress, member-type, bp-member-type
-Requires at least: 4.0
-Tested up to: 4.2
+Requires at least: BuddyPress 2.3
+Tested up to: BuddyPress 2.3.2.1
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -35,7 +35,7 @@ Though we will keep an eye here, we may not be able to support via wordpress.org
 == Frequently Asked Questions ==
 
 = Does it detects the member types added via code =
-No, It will only list the member types you add via dashboard. You don't need to use any code to register a new member type.
+No, It will only list the member types that you add from dashboard. You don't need to use any code to register a new member type.
 
 = Will it Work With WordPress Mulitiste & BuddyPress? =
 
@@ -43,8 +43,8 @@ Yes.
 
 == Screenshots ==
 
-1. Member type list screen screenshot-1.png
-2. Add/Edit Member type screen screenshot-2.png
+1. Add/Edit Member type screen screenshot-1.png 
+2. Member type list screen screenshot-2.png
 2. Bulk Change Member type screen screenshot-3.png
 2. Extended Profile Member Type list screenshot-4.png
 
