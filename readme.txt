@@ -1,9 +1,9 @@
 === BP Member Type Generator ===
 Contributors: buddydev,sbrajesh
 Tags: buddypress, member-type, bp-member-type
-Requires at least: BuddyPress 2.3
-Tested up to: BuddyPress 2.3.2.1
-Stable tag: 1.0.0
+Requires at least: 4.0
+Tested up to: 4.5
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,10 @@ Yes.
 
 == Changelog ==
 
+= 1.0.2 =
+* Move Member Type Menu Under Users Menu
+* Fix bulk assigning member type
+ 
 = 1.0.1 =
 * Fix the directory url.
 
