@@ -130,9 +130,10 @@ class BP_Member_Type_Generator {
 		
 		$ids = $wpdb->get_col( $wpdb->prepare( $check_query, '_bp_member_type_name', $key, $post_id ) );
 		
-		if( ! empty( $ids ) )
+		if ( ! empty( $ids ) ) {
 			return true;
-		
+		}
+			
 		return false;
 		
 	}
