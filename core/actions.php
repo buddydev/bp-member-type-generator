@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
+
 /**
  * Helper class to register the internal member type post type and the actual Member type
  * 
@@ -18,8 +22,9 @@ class BP_Member_Type_Generator_Actions {
 	
 	public static function get_instance() {
 		
-		if( is_null( self::$instance ) )
+		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
+		}
 		
 		return self::$instance;
 		
@@ -32,8 +37,9 @@ class BP_Member_Type_Generator_Actions {
 	public function register_post_type() {
 		
 		//only register on the main bp site
-		if( is_multisite() && ! bp_is_root_blog() )
+		if ( is_multisite() && ! bp_is_root_blog() ) {
 			return ;
+		}
 		
 		register_post_type( bp_member_type_generator()->get_post_type(), array(
 			'label'					=> __( 'BuddyPress Member Types', 'bp-member-type-generator' ),
@@ -79,25 +85,29 @@ class BP_Member_Type_Generator_Actions {
 		//build to register the memebr type
 		$member_types = array();
 		
-		foreach( $post_ids as $post_id ) {
+		foreach ( $post_ids as $post_id ) {
 			
 			$is_active	= get_post_meta( $post_id, '_bp_member_type_is_active', true );
 			$name		= get_post_meta( $post_id, '_bp_member_type_name', true );
 			
-			if( ! $is_active || ! $name )
+			if ( ! $is_active || ! $name ) {
 				continue;//if not active or no unique key, do not register
+			}
+				
 			
 			$enable_directory = get_post_meta( $post_id, '_bp_member_type_enable_directory', true );
 			$directory_slug = get_post_meta( $post_id, '_bp_member_type_directory_slug', true );
 			
 			$has_dir = false;
 			
-			if( $enable_directory ) {
+			if ( $enable_directory ) {
 				
-				if( $directory_slug )
+				if ( $directory_slug ) {
 					$has_dir = $directory_slug;
-				else
+				} else {
 					$has_dir  = true;
+				}
+					
 			}
 			
 			$member_types[$name] = array(
@@ -111,7 +121,7 @@ class BP_Member_Type_Generator_Actions {
 			
 		}
 		
-		foreach( $member_types as $member_type => $args ) {
+		foreach ( $member_types as $member_type => $args ) {
 			
 			bp_register_member_type($member_type, $args );
 		}
@@ -134,4 +144,5 @@ class BP_Member_Type_Generator_Actions {
 	
 	
 }
+
 BP_Member_Type_Generator_Actions::get_instance();

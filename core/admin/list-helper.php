@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
+
 /**
  * BP Member type List screen helper
  * 
@@ -25,8 +29,9 @@ class BP_Member_Generator_Admin_List_Helper {
 	 */
 	public static function get_instance() {
 		
-		if( is_null( self::$instance ) )
+		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
+		}
 		
 		return self::$instance;
 		
@@ -88,20 +93,22 @@ class BP_Member_Generator_Admin_List_Helper {
 			
 			case 'is_active':
 				
-				if( get_post_meta( $post_id, '_bp_member_type_is_active', true ) )
-						echo __( 'Yes', 'bp-member-type-generator' );
-				else
+				if ( get_post_meta( $post_id, '_bp_member_type_is_active', true ) ) {
+					echo __( 'Yes', 'bp-member-type-generator' );
+				} else {
 					echo __( 'No', 'bp-member-type-generator' );
-				
+				}
+					
 				break;
 			
 			case 'enable_directory':
 				
-				if( get_post_meta( $post_id, '_bp_member_type_enable_directory', true ) )
+				if ( get_post_meta( $post_id, '_bp_member_type_enable_directory', true ) ) {
 						echo __( 'Yes', 'bp-member-type-generator' );
-				else
+				} else {
 					echo __( 'No', 'bp-member-type-generator' );
-				
+				}
+					
 				break;
 			
 			case 'directory_slug':
@@ -114,9 +121,10 @@ class BP_Member_Generator_Admin_List_Helper {
 				
 				$directory_slug = get_post_meta( $post_id, '_bp_member_type_directory_slug', true );
 				
-				if( ! $directory_slug )
+				if ( ! $directory_slug ) {
 					$directory_slug = get_post_meta( $post_id, '_bp_member_type_name', true );
-				//get the type slug, do not change text domain as it will get the actual one from BuddyPress translated file
+				}
+					//get the type slug, do not change text domain as it will get the actual one from BuddyPress translated file
 				$type_slug = apply_filters( 'bp_members_member_type_base', _x( 'type', 'member type URL base', 'buddypress' ) );
 				echo trailingslashit( get_permalink( buddypress()->pages->members->id ) ) . $type_slug . '/' . $directory_slug;   
 		
@@ -139,12 +147,14 @@ class BP_Member_Generator_Admin_List_Helper {
 	 */
 	public function sort_items( $qv ) {
 		
-		if( ! isset( $qv['post_type'] ) || $qv['post_type'] != $this->post_type )
+		if ( ! isset( $qv['post_type'] ) || $qv['post_type'] != $this->post_type ) {
 			return $qv;
+		}
 		
-		if( ! isset( $qv['orderby'] ) )
+		if ( ! isset( $qv['orderby'] ) ) {
 			return $qv;
-		
+		}
+			
 		switch( $qv['orderby'] ) {
 			
 			case 'member_type':
@@ -188,8 +198,9 @@ class BP_Member_Generator_Admin_List_Helper {
 	 */
 	public function hide_quickedit( $actions, $post ) {
 		
-		if ( $this->post_type == $post->post_type )
+		if ( $this->post_type == $post->post_type ) {
 			unset( $actions['inline hide-if-no-js'] );
+		}
 		
 		return $actions;
 	}

@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
 /**
  * Helper class for Edit Member Type screen
  * 
@@ -21,7 +24,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 	 */
 	public static function get_instance() {
 		
-		if( is_null( self::$instance ) ) {
+		if ( is_null( self::$instance ) ) {
 			
 			self::$instance = new self();
 		}	
@@ -164,27 +167,32 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 	 */
 	public function save_post( $post_id ) {
 		
-		if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return ;
-		
+		}
+			
 		$post = get_post( $post_id );
 		
-		if( $post->post_type != $this->post_type )
+		if ( $post->post_type != $this->post_type ) {
 				return ;
-		
-		if( ! isset( $_POST['_bp-member-type-generator-nonce'] ) )
+		}
+			
+		if ( ! isset( $_POST['_bp-member-type-generator-nonce'] ) ) {
 			return ;//most probably the new member type screen
+		}
 			
 		//verify nonce
-		if( ! wp_verify_nonce( $_POST['_bp-member-type-generator-nonce'], 'bp-member-type-generator-edit-member-type' ) )
+		if ( ! wp_verify_nonce( $_POST['_bp-member-type-generator-nonce'], 'bp-member-type-generator-edit-member-type' ) ) {
 				return ;
-		
+		}
+			
 		//save data
 		
 		$data =  isset( $_POST['bp-member-type'] ) ? $_POST['bp-member-type'] : array() ;
 		
-		if( empty( $data ) )
+		if ( empty( $data ) ) {
 			return ;
+		}
 		
 		$post_title =  wp_kses( $_POST['post_title'] , wp_kses_allowed_html( 'strip' ) );
 		//for unique id
@@ -209,11 +217,9 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 		
 		//for directory slug
 		
-		if( $directory_slug ) {
-			
+		if ( $directory_slug ) {
 			update_post_meta( $post_id, '_bp_member_type_directory_slug', $directory_slug );
-		}else{
-			
+		} else {
 			delete_post_meta( $post_id, '_bp_member_type_directory_slug' );
 		}
 	}
@@ -233,7 +239,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 	
 	  $update_message[7] = __( 'Member type  saved.', 'bp-member-type-generator' );
 	  
-	  $messages[$this->post_type] = $update_message;
+	  $messages[ $this->post_type ] = $update_message;
 	  
 	  return $messages;
 	}

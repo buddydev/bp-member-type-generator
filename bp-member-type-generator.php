@@ -5,9 +5,13 @@
  * Plugin URI: http://buddydev.com/plugins/bp-member-type-generator/
  * Author: Brajesh Singh(BuddyDev.com)
  * Author URI: http://BuddyDev.com
- * Description: Allows site admins to create/manage Member types from WordPress dashboard. Also, Includes functionalit to bulk assign member type to users.
+ * Description: Allows site admins to create/manage Member types from WordPress dashboard. Also, Includes functionality to bulk assign member type to users.
  * License: GPL2 or above
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
 
 class BP_Member_Type_Generator {
 		

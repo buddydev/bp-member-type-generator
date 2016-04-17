@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
+
 /**
  * Admin/Network admin Users list helper
  * 
@@ -27,8 +31,9 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 	 */
 	public static function get_instance() {
 		
-		if( is_null( self::$instance ) )
+		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
+		}
 		
 		return self::$instance;
 		
@@ -46,9 +51,10 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 		add_action( 'in_admin_footer', array( $this, 'network_manage_users_footer' ) );
 		
 		
-		if( ! empty( $_GET['bp-member-type-message'] ) )
+		if ( ! empty( $_GET['bp-member-type-message'] ) ) {
 			$this->message = esc_html( urldecode ( $_GET['bp-member-type-message'] ) );
-		
+		}
+			
 		//add_filter( 'manage_users_columns', array( $this, 'add_column' ) );
 		//add_filter( 'manage_users-network_columns', array( $this, 'add_column' ) );
 		//add_filter( 'wpmu_users_columns', array( $this, 'add_column' ) );
@@ -95,9 +101,10 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 	 */
 	public function update_member_type() {
 		
-		if( empty( $_REQUEST['new_member_type'] ) )
+		if ( empty( $_REQUEST['new_member_type'] ) ) {
 			return;
-		
+		}
+			
 		//only admin/super admin
 		if ( ! current_user_can( 'edit_users' ) ) {
 			return;
@@ -105,14 +112,16 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 		
 		$input_name = 'users';
 		
-		if ( is_multisite() && is_network_admin() ) 
+		if ( is_multisite() && is_network_admin() ) {
 			$input_name = 'allusers';
+		}
 		
 		$users = isset( $_REQUEST[$input_name] ) ? $_REQUEST[$input_name] : array();
 		
-		if( empty( $users ) )
+		if ( empty( $users ) ) {
 			return ;//no user selected
-			//
+		}
+		//
 		
 		$users = wp_parse_id_list( $users );
 		
@@ -120,12 +129,13 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 		
 		$member_type_object = bp_get_member_type_object( $member_type );
 		
-		if( empty( $member_type_object ) )
+		if ( empty( $member_type_object ) ) {
 			return ;//the member type does not seem to be registered
-		
+		}
+			
 		$updated = 0;
 		
-		foreach( $users as $user_id ) {
+		foreach ( $users as $user_id ) {
 			
 			bp_set_member_type( $user_id, $member_type );
 		}
@@ -134,16 +144,17 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 		
 		$this->message = sprintf( __( 'Updated member type for %d user(s) to %s. '), count( $users ), $member_type_object->labels['singular_name'] );
 		
-		if( is_network_admin() )
+		if ( is_network_admin() ) {
 			$url = network_admin_url( 'users.php' );
-		else
+		} else {
 			$url = admin_url( 'users.php' );
-		
+		}
+			
 		$redirect = add_query_arg( array( 'updated' => $updated, 'bp-member-type-message' => urlencode( $this->message ) ), $url );
 		
 		wp_safe_redirect( $redirect );
 		
-		exit();
+		exit( 0 );
 		
 	}
 	/**
@@ -153,14 +164,14 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 	 */
 	public function notices() {
 		
-		if( ! $this->message )
+		if ( ! $this->message ) {
 			return ;
+		}
 		?>
 		
 		<div id="message" class="updated notice is-dismissible"><p><?php echo $this->message;?></p></div>
 		
 		<?php 
-	
 	
 	}
 
@@ -172,8 +183,10 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 	public function network_manage_users_footer() {
 		
 		//wpmu does not provide an action to add the dd box
-		if( get_current_screen()->id != 'users-network' )
+		if ( get_current_screen()->id != 'users-network' ) {
 			return ;
+		}
+			
 		//now let us add the snippet
 		?>
 		<div id='bp-member-type-box-wrapper' style='display: none;'>
