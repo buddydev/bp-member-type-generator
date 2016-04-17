@@ -56,8 +56,8 @@ class BP_Member_Type_Generator_Actions {
 			
 			'public'				=> false,//this is a private post type, not accesible from front end
 			'show_ui'				=> true,
-			'show_in_menu'			=> true,
-			'menu_position'			=> 60,
+			'show_in_menu'			=> 'users.php',
+		//	'menu_position'			=> 60,
 			'menu_icon'				=> 'dashicons-groups',
 			'supports'				=> array('title'),
 			//'register_meta_box_cb'	=> array( $this, 'register_metabox'),
