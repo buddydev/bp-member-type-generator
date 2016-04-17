@@ -64,12 +64,22 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 	}
 	
 	
-	public function add_change_member_type_selectbox() {
+	public function add_change_member_type_selectbox( $where = '' ) {
+
+		//Since wp will not pass whether it is for top/bottom, let us use static var to deremine position
+		static $position;
 		
-		//only admin/super admin
+		if ( ! isset( $position ) ) {
+			$position = 'top';//assume it will be called from top
+		} else {
+			$position = 'bottom';
+		}
+		
+				//only admin/super admin
 		if ( ! current_user_can( 'edit_users' ) ) {
 			return;
 		}
+		
 
 		$member_types = bp_get_member_types( array(), 'objects' );
 
@@ -77,9 +87,9 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 			return;
 		}
 		
-		$output = '<div class="alignright" id="bp-member-type-change-action">'
-				. '<label for="new_member_type" class="screen-reader-text">' . __( 'Change member type to…', 'bp-member-type-generator' ) . '</label>
-					<select id="new_member_type" name="new_member_type">
+		$output = '<div class="alignright" id="bp-member-type-change-action_' . $position . '">'
+				. '<label for="new_member_type_' . $position .'" class="screen-reader-text">' . __( 'Change member type to…', 'bp-member-type-generator' ) . '</label>
+					<select id="new_member_type_'. $position . '" name="new_member_type_' . $position .'">
 					<option value="">'. __( 'Change member type to…', 'bp-member-type-generator' ) . '</option>';
 		
 		foreach ( $member_types as $key => $type ) {
@@ -100,14 +110,22 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 	 * @return type
 	 */
 	public function update_member_type() {
-		
-		if ( empty( $_REQUEST['new_member_type'] ) ) {
+		//none of our actions are set
+		if ( empty( $_REQUEST['new_member_type_top'] ) && empty( $_REQUEST['new_member_type_bottom'] )) {
 			return;
 		}
-			
+		
+		
 		//only admin/super admin
 		if ( ! current_user_can( 'edit_users' ) ) {
 			return;
+		}
+		
+		$member_type = '';
+		if ( !  empty( $_REQUEST['new_member_type_top'] ) ) {
+			$member_type = trim( $_REQUEST['new_member_type_top'] );
+		} else {
+			$member_type = trim( $_REQUEST['new_member_type_bottom'] );
 		}
 		
 		$input_name = 'users';
@@ -116,7 +134,7 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 			$input_name = 'allusers';
 		}
 		
-		$users = isset( $_REQUEST[$input_name] ) ? $_REQUEST[$input_name] : array();
+		$users = isset( $_REQUEST[ $input_name ] ) ? $_REQUEST[ $input_name ] : array();
 		
 		if ( empty( $users ) ) {
 			return ;//no user selected
@@ -125,7 +143,7 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 		
 		$users = wp_parse_id_list( $users );
 		
-		$member_type = sanitize_key( $_REQUEST['new_member_type'] );
+		$member_type = sanitize_key( $member_type );
 		
 		$member_type_object = bp_get_member_type_object( $member_type );
 		
@@ -190,7 +208,7 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 		//now let us add the snippet
 		?>
 		<div id='bp-member-type-box-wrapper' style='display: none;'>
-			<?php $this->add_change_member_type_selectbox();?>
+			<?php $this->add_change_member_type_selectbox( 'bottom' );?>
 		</div>
 		<script type='text/javascript'>
 			jQuery( document ).ready( function() {
