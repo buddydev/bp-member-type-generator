@@ -1,28 +1,28 @@
-=== BP Member Type Generator ===
+=== BuddyPress Member Type Generator ===
 Contributors: buddydev,sbrajesh
 Tags: buddypress, member-type, bp-member-type
 Requires at least: 4.0
-Tested up to: 4.5
-Stable tag: 1.0.2
+Tested up to: 4.6.1
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-BuddyPress Member Type generator allows site admins to create/manage member types from dashboard
+BuddyPress Member Type Generator allows site admins to create/manage member types from dashboard.
 
 == Description ==
 
-BuddyPress Member Type generator allows site admins to create and manage member types from dashboard.
+BuddyPress Member Type Generator allows site admins to create and manage member types from dashboard.
 A member type can be easily created, activated and deactivated from admin dashboard.
 
 Features:
 
 *   Create/Edit/Delete Member Types  from WordPress dashboard 
 *   Bulk assign member type to users from the users list screen
-*   A member type can be marked active/deactive from the edit member type page
+*   A member type can be marked active/deactive from the edit member type page(Only till BuddyPress 2.6.2, BuddyPress 2.7.0 does it out of the box )
 
 **Support**
 
-Though we will keep an eye here, we may not be able to support via wordpress.org forums. For support, please consider using [BuddyDev Premium Forum](http://buddydev.com/support/forums/) or let us know your feedback via [blog comment](http://buddydev.com/buddypress/introducing-buddypress-member-type-generator/).
+Though we will keep an eye here, we may not be able to support via wordpress.org forums. For support, please use [BuddyDev Premium Forum](https://buddydev.com/support/forums/) or let us know your feedback via [blog comment](https://buddydev.com/buddypress/introducing-buddypress-member-type-generator/).
 
 == Installation ==
 
@@ -51,10 +51,14 @@ Yes.
 
 == Changelog ==
 
-= 1.0.2 =
+= 1.0.3 =
+* Add Compatibility with BuddyPress 2.7.0
+* Cleanup code
+
+ = 1.0.2 =
 * Move Member Type Menu Under Users Menu
 * Fix bulk assigning member type
- 
+
 = 1.0.1 =
 * Fix the directory url.
 
