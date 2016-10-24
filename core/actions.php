@@ -14,10 +14,8 @@ class BP_Member_Type_Generator_Actions {
 	private function __construct () {
 		//register internal post type used to handle the member type
 		add_action( 'bp_init', array( $this, 'register_post_type' ) );
-		
 		//register member type
 		add_action( 'bp_register_member_types', array( $this, 'register_member_type' ) );
-
 	}
 	
 	public static function get_instance() {
@@ -27,12 +25,12 @@ class BP_Member_Type_Generator_Actions {
 		}
 		
 		return self::$instance;
-		
 	}
+
 	/**
 	 * Register internal post type
 	 * 
-	 * @return type
+	 * @return null
 	 */
 	public function register_post_type() {
 		
@@ -93,8 +91,7 @@ class BP_Member_Type_Generator_Actions {
 			if ( ! $is_active || ! $name ) {
 				continue;//if not active or no unique key, do not register
 			}
-				
-			
+
 			$enable_directory = get_post_meta( $post_id, '_bp_member_type_enable_directory', true );
 			$directory_slug = get_post_meta( $post_id, '_bp_member_type_directory_slug', true );
 			
@@ -107,7 +104,6 @@ class BP_Member_Type_Generator_Actions {
 				} else {
 					$has_dir  = true;
 				}
-					
 			}
 			
 			$member_types[$name] = array(
@@ -116,13 +112,11 @@ class BP_Member_Type_Generator_Actions {
 					'singular_name'	=>  get_post_meta( $post_id, '_bp_member_type_label_singular_name', true ),
 				),
 				'has_directory'	=> $has_dir //only applies to bp 2.3+
-				
 			);
 			
 		}
 		
 		foreach ( $member_types as $member_type => $args ) {
-			
 			bp_register_member_type($member_type, $args );
 		}
 		
@@ -130,8 +124,7 @@ class BP_Member_Type_Generator_Actions {
 			restore_current_blog();
 		}
 	}
-	
-	
+
 	private function get_active_member_types() {
 		
 		global $wpdb;
@@ -140,9 +133,6 @@ class BP_Member_Type_Generator_Actions {
 		
 		return $wpdb->get_col( $wpdb->prepare( $query, bp_member_type_generator()->get_post_type(),'_bp_member_type_is_active', 1 ) );
 	}
-	
-	
-	
 }
 
 BP_Member_Type_Generator_Actions::get_instance();

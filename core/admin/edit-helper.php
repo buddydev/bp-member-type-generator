@@ -18,6 +18,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 		
 		$this->init();
 	}
+
 	/**
 	 * 
 	 * @return BP_Member_Type_Generator_Admin_Edit_Screen_Helper
@@ -25,12 +26,10 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 	public static function get_instance() {
 		
 		if ( is_null( self::$instance ) ) {
-			
 			self::$instance = new self();
 		}	
 		
 		return self::$instance;
-		
 	}
 	
 	private function init() {
@@ -39,9 +38,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 
 		add_action( 'add_meta_boxes', array( $this, 'register_metabox' ) );
 		add_filter( 'post_updated_messages', array( $this, 'filter_update_messages' ) );
-		
 	}
-	
 
 	/**
 	 * Register meta boxes
@@ -55,7 +52,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 	/**
 	 * Collect member type details
 	 * 
-	 * @param type $post
+	 * @param WP_Post $post
 	 */
 	public function member_type_info_metabox( $post ) {
 		
@@ -88,8 +85,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 				<span> <span><?php _e( 'Singular Label:', 'bp-member-type-generator' );?></span></span>
 				<input type="text" name="bp-member-type[label_singular_name]" placeholder="<?php _e( 'Singular name, e.g. Student', 'bp-member-type-generator' );?>" value="<?php echo esc_attr( $label_singular_name);?>" />
 			</label>
-			
-			
+
 			<p> 
 				<label>
 					<input type='checkbox' name='bp-member-type[enable_directory]' value='1' <?php	checked( $enable_directory, 1 );?> />
@@ -152,7 +148,6 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 		$meta = get_post_custom( $post->ID );
 		$is_active = isset( $meta['_bp_member_type_is_active'] )? $meta['_bp_member_type_is_active'][0] : 1;
 	?>
-
 		<p> <label><input type='checkbox' name='bp-member-type[is_active]' value='1' <?php	checked( $is_active, 1 );?> ><?php _e( 'Is active?', 'bp-member-type-generator');?></label></p>
 		<p class='bp-member-type-generator-help'> <?php _e( 'Only active member types will be registered. You can set a member type to inactive to disable it.', 'bp-member-type-generator' );?></p>
 	<?php 
@@ -162,8 +157,8 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 	/**
 	 * Save all data as post meta
 	 * 
-	 * @param type $post_id
-	 * @return type
+	 * @param int $post_id
+	 * @return null
 	 */
 	public function save_post( $post_id ) {
 		
@@ -180,12 +175,12 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 		if ( ! isset( $_POST['_bp-member-type-generator-nonce'] ) ) {
 			return ;//most probably the new member type screen
 		}
-			
+
 		//verify nonce
 		if ( ! wp_verify_nonce( $_POST['_bp-member-type-generator-nonce'], 'bp-member-type-generator-edit-member-type' ) ) {
 				return ;
 		}
-			
+
 		//save data
 		
 		$data =  isset( $_POST['bp-member-type'] ) ? $_POST['bp-member-type'] : array() ;
@@ -205,8 +200,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 		
 		$enable_directory = isset( $data['enable_directory'] ) ? absint( $data['enable_directory'] ) : 0;//default inactive
 		$directory_slug = isset( $data['directory_slug'] ) ? sanitize_key( $data['directory_slug'] ) : '';//default inactive
-		
-		
+
 		update_post_meta( $post_id, '_bp_member_type_is_active', $is_active );
 		
 		update_post_meta( $post_id, '_bp_member_type_name', $name );
@@ -223,7 +217,6 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 			delete_post_meta( $post_id, '_bp_member_type_directory_slug' );
 		}
 	}
-	
 
 	public function filter_update_messages( $messages ) {
 		
@@ -245,6 +238,5 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 	}
 	
 }
-
 
 BP_Member_Type_Generator_Admin_Edit_Screen_Helper::get_instance();

@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  */
 class BP_Member_Generator_Admin_List_Helper {
+
 	/**
 	 *
 	 * @var BP_Member_Generator_Admin_List_Helper
@@ -21,8 +22,8 @@ class BP_Member_Generator_Admin_List_Helper {
 		$this->post_type = bp_member_type_generator()->get_post_type();
 		
 		$this->init();
-		
 	}
+
 	/**
 	 * 
 	 * @return BP_Member_Generator_Admin_List_Helper
@@ -34,7 +35,6 @@ class BP_Member_Generator_Admin_List_Helper {
 		}
 		
 		return self::$instance;
-		
 	}
 	
 	private function init() {
@@ -47,13 +47,12 @@ class BP_Member_Generator_Admin_List_Helper {
 		
 		//hide quick edit link on the custom post type list screen
 		add_filter( 'post_row_actions', array( $this, 'hide_quickedit' ), 10, 2 );
-		
 	}
 	
 	/**
 	 * Add new columns to the post type list screen
-	 * @param type $columns
-	 * @return type
+	 * @param array $columns
+	 * @return array
 	 */
 	public function add_column( $columns ) {
 
@@ -87,12 +86,11 @@ class BP_Member_Generator_Admin_List_Helper {
 		switch( $column ) {
 			
 			case 'member_type':
-				
 				echo  get_post_meta( $post_id, '_bp_member_type_name', true );
 				break;
 			
 			case 'is_active':
-				
+
 				if ( get_post_meta( $post_id, '_bp_member_type_is_active', true ) ) {
 					echo __( 'Yes', 'bp-member-type-generator' );
 				} else {
@@ -129,20 +127,18 @@ class BP_Member_Generator_Admin_List_Helper {
 				echo trailingslashit( get_permalink( buddypress()->pages->members->id ) ) . $type_slug . '/' . $directory_slug;   
 		
 				break;
-			
 		}
 		
 	}
 	
 	public function add_request_filter() {
-		
 		add_filter( 'request', array( $this, 'sort_items' ) );
-		
 	}
+
 	/**
 	 * Sort list of member type post types
 	 * 
-	 * @param type $qv
+	 * @param array $qv
 	 * @return string
 	 */
 	public function sort_items( $qv ) {
@@ -184,7 +180,6 @@ class BP_Member_Generator_Admin_List_Helper {
 				$qv['orderby'] = 'meta_value_num';
 				
 				break;
-			
 		}
 		
 		return $qv;
@@ -192,9 +187,9 @@ class BP_Member_Generator_Admin_List_Helper {
 	/**
 	 * Hide quick edit link
 
-	 * @param type $actions
-	 * @param type $post
-	 * @return type
+	 * @param array $actions
+	 * @param WP_Post $post
+	 * @return array
 	 */
 	public function hide_quickedit( $actions, $post ) {
 		
@@ -204,8 +199,6 @@ class BP_Member_Generator_Admin_List_Helper {
 		
 		return $actions;
 	}
-
 }
-
 
 BP_Member_Generator_Admin_List_Helper::get_instance();

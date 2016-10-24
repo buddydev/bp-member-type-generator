@@ -26,8 +26,8 @@ class BP_Member_Type_Generator {
 		$this->url	= plugin_dir_url( __FILE__ );
 		
 		add_action( 'bp_loaded', array( $this, 'load' ), 0 );
-		
 	}
+
 	/**
 	 * Get singleton instance
 	 * 
@@ -39,8 +39,8 @@ class BP_Member_Type_Generator {
 			self::$instance = new self();
 		}
 		return self::$instance;
-		
 	}
+
 	/**
 	 * Load required files
 	 * 
@@ -66,63 +66,61 @@ class BP_Member_Type_Generator {
 			require_once $this->path . $file ;
 		}
 	}
+
 	/**
 	 * Get the post type we are using internally to store member type details
 	 * 
 	 * @return string
 	 */
 	public function get_post_type() {
-		
 		return 'bp-member-type';
 	}
+
 	/**
 	 * Save plural label name to post meta
-	 * @param type $post_id
-	 * @param type $name
+	 * @param int $post_id
+	 * @param string $name
 	 */
 	public function update_label( $post_id, $name ) {
-	
 		update_post_meta( $post_id, '_bp_member_type_label_name', $name );
-		
 	}
+
 	/**
 	 * Save singular label for member type to post meta
 	 * 
-	 * @param type $post_id
-	 * @param type $name
+	 * @param int $post_id
+	 * @param string $name
 	 */
 	public function update_singular_label( $post_id, $name ) {
-		
 		update_post_meta( $post_id, '_bp_member_type_label_singular_name', $name );
 	}
 	
 	/**
 	 * Save the directory preference for the member type
 	 * 
-	 * @param type $post_id
-	 * @param type $has_directory
+	 * @param int $post_id
+	 * @param int $has_directory
 	 */
 	public function update_has_directory($post_id, $has_directory) {
-	
 		update_post_meta( $post_id, '_bp_member_type_has_directory', $has_directory );
 	}
 	
 	/**
 	 *	Save member type name in the post meta
 	 *  
-	 * @param type $post_id
-	 * @param type $key
+	 * @param int $post_id
+	 * @param string $key
 	 */
 	public function update_member_type( $post_id, $key ) {
-		
 			update_post_meta( $post_id, '_bp_member_type_name', $key );
 	}
+
 	/**
 	 * Check if the member type already exists
 	 * 
-	 * @global type $wpdb
-	 * @param type $post_id
-	 * @param type $key
+	 * @global wpdb $wpdb
+	 * @param int $post_id
+	 * @param string $key
 	 * @return boolean
 	 */
 	public function key_exists( $post_id, $key ) {
@@ -138,7 +136,6 @@ class BP_Member_Type_Generator {
 		}
 			
 		return false;
-		
 	}
 }
 //instantiate
