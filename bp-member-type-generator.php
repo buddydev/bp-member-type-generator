@@ -52,11 +52,14 @@ class BP_Member_Type_Generator {
 			'core/actions.php',
 		);
 		
-		if( is_admin() ) {
+		if ( is_admin() ) {
 			
 			$files[] = 'core/admin/edit-helper.php'; //edit screen helper
 			$files[] = 'core/admin/list-helper.php';//member type list helper
-			$files[] = 'core/admin/user-helper.php'; //user list helper for bulk manage
+
+			if ( version_compare( buddypress()->version, '2.7.0', '<' ) ) {
+				$files[] = 'core/admin/user-helper.php'; //user list helper for bulk manage
+			}
 		}
 		
 		foreach ( $files as $file ) {
