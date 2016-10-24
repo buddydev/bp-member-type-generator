@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: BuddyPress Member Type Generator
- * Version: 1.0.2
- * Plugin URI: http://buddydev.com/plugins/bp-member-type-generator/
- * Author: BuddyDev Team
- * Author URI: http://BuddyDev.com
+ * Version: 1.0.3
+ * Plugin URI: https://buddydev.com/plugins/bp-member-type-generator/
+ * Author: BuddyDev
+ * Author URI: https://BuddyDev.com
  * Description: Allows site admins to create/manage Member types from WordPress dashboard. Also, Includes functionality to bulk assign member type to users.
  * License: GPL2 or above
  */
