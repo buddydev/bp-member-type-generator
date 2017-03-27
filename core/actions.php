@@ -37,6 +37,8 @@ class BP_Member_Type_Generator_Actions {
 			return;
 		}
 
+		$is_admin = is_super_admin();
+
 		register_post_type( bp_member_type_generator()->get_post_type(), array(
 			'label'  => __( 'BuddyPress Member Types', 'bp-member-type-generator' ),
 			'labels' => array(
@@ -51,7 +53,7 @@ class BP_Member_Type_Generator_Actions {
 			),
 
 			'public'       => false,//this is a private post type, not accesible from front end
-			'show_ui'      => true,
+			'show_ui'      => $is_admin,
 			'show_in_menu' => 'users.php',
 			//	'menu_position'			=> 60,
 			'menu_icon'    => 'dashicons-groups',
@@ -73,7 +75,7 @@ class BP_Member_Type_Generator_Actions {
 		if ( ! $is_root_blog ) {
 			switch_to_blog( bp_get_root_blog_id() );
 		}
-		// get all posts in memeber type post type.
+		// get all posts in member type post type.
 		$post_ids = $this->get_active_member_types();// get_posts( array( 'post_type'=> bp_member_type_generator()->get_post_type(), 'posts_per_page'=> -1, 'post_status'=> 'publish' ) );
 		// update meta cache to avoid multiple db calls.
 		update_meta_cache( 'post', $post_ids );
