@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: BuddyPress Member Type Generator
- * Version: 1.0.3
+ * Version: 1.0.4
  * Plugin URI: https://buddydev.com/plugins/bp-member-type-generator/
  * Author: BuddyDev
  * Author URI: https://BuddyDev.com

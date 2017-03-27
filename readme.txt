@@ -2,8 +2,8 @@
 Contributors: buddydev,sbrajesh
 Tags: buddypress, member-type, bp-member-type
 Requires at least: 4.0
-Tested up to: 4.6.1
-Stable tag: 1.0.3
+Tested up to: 4.7.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,10 @@ Yes.
 
 
 == Changelog ==
+
+= 1.0.4 =
+* Make the member type post type to be editable by admin only. Props @jonathanmoorebcsorg for reporting.
+* Cleanup code
 
 = 1.0.3 =
 * Add Compatibility with BuddyPress 2.7.0
