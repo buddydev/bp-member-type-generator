@@ -5,14 +5,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Helper class for Edit Member Type screen
- *
  */
 class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 
+	/**
+     * Singleton instance.
+     *
+	 * @var BP_Member_Type_Generator_Admin_Edit_Screen_Helper
+	 */
 	private static $instance = null;
 
+	/**
+     * Post type.
+     *
+	 * @var string
+	 */
 	private $post_type = '';
 
+	/**
+     * Constructor.
+	 */
 	private function __construct() {
 
 		$this->post_type = bp_member_type_generator()->get_post_type();
@@ -21,7 +33,8 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 	}
 
 	/**
-	 *
+	 * Get Singleton instance.
+     *
 	 * @return BP_Member_Type_Generator_Admin_Edit_Screen_Helper
 	 */
 	public static function get_instance() {
@@ -33,8 +46,11 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 		return self::$instance;
 	}
 
+	/**
+	 * Init actions.
+	 */
 	private function init() {
-		//save post
+		// save post.
 		add_action( 'save_post', array( $this, 'save_post' ) );
 
 		add_action( 'add_meta_boxes', array( $this, 'register_metabox' ) );
@@ -46,20 +62,33 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 	 */
 	public function register_metabox() {
 
-		add_meta_box( 'bp-member-type-box', __( 'Member type Info', 'bp-member-type-generator' ), array(
-			$this,
-			'member_type_info_metabox',
-		), $this->post_type );
-		add_meta_box( 'bp-member-type-box-status', __( 'Member Type Status', 'bp-member-type-generator' ), array(
-			$this,
-			'status_metabox',
-		), $this->post_type, 'side', 'high' );
+		add_meta_box(
+			'bp-member-type-box',
+			__( 'Member type Info', 'bp-member-type-generator' ),
+			array(
+				$this,
+				'member_type_info_metabox',
+			),
+			$this->post_type
+		);
+
+		add_meta_box(
+			'bp-member-type-box-status',
+			__( 'Member Type Status', 'bp-member-type-generator' ),
+			array(
+				$this,
+				'status_metabox',
+			),
+			$this->post_type,
+			'side',
+			'high'
+		);
 	}
 
 	/**
 	 * Collect member type details
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post post object.
 	 */
 	public function member_type_info_metabox( $post ) {
 
@@ -70,7 +99,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 		$label_name          = isset( $meta['_bp_member_type_label_name'] ) ? $meta['_bp_member_type_label_name'][0] : '';
 		$label_singular_name = isset( $meta['_bp_member_type_label_singular_name'] ) ? $meta['_bp_member_type_label_singular_name'][0] : '';
 
-		$enable_directory = isset( $meta['_bp_member_type_enable_directory'] ) ? $meta['_bp_member_type_enable_directory'][0] : 1;//enabled by default
+		$enable_directory = isset( $meta['_bp_member_type_enable_directory'] ) ? $meta['_bp_member_type_enable_directory'][0] : 1; // enabled by default.
 
 		$directory_slug = isset( $meta['_bp_member_type_directory_slug'] ) ? $meta['_bp_member_type_directory_slug'][0] : '';
 
@@ -160,7 +189,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 	/**
 	 * Generate Member Type status Meta box
 	 *
-	 * @param WP_Post $post
+	 * @param WP_Post $post post object.
 	 */
 	public function status_metabox( $post ) {
 
@@ -178,9 +207,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 	/**
 	 * Save all data as post meta
 	 *
-	 * @param int $post_id
-	 *
-	 * @return null
+	 * @param int $post_id post id.
 	 */
 	public function save_post( $post_id ) {
 
@@ -198,13 +225,12 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 			return;//most probably the new member type screen
 		}
 
-		//verify nonce
+		// verify nonce.
 		if ( ! wp_verify_nonce( $_POST['_bp-member-type-generator-nonce'], 'bp-member-type-generator-edit-member-type' ) ) {
 			return;
 		}
 
-		//save data
-
+		// save data.
 		$data = isset( $_POST['bp-member-type'] ) ? $_POST['bp-member-type'] : array();
 
 		if ( empty( $data ) ) {
@@ -212,16 +238,16 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 		}
 
 		$post_title = wp_kses( $_POST['post_title'], wp_kses_allowed_html( 'strip' ) );
-		//for unique id
+		// for unique id.
 		$name = isset( $data['name'] ) ? sanitize_key( $data['name'] ) : sanitize_key( $post_title );
-		//for label
+		// for label.
 		$label_name    = isset( $data['label_name'] ) ? wp_kses( $data['label_name'], wp_kses_allowed_html( 'strip' ) ) : $post_title;
 		$singular_name = isset( $data['label_singular_name'] ) ? wp_kses( $data['label_singular_name'], wp_kses_allowed_html( 'strip' ) ) : $post_title;
 
-		$is_active = isset( $data['is_active'] ) ? absint( $data['is_active'] ) : 0;//default inactive
+		$is_active = isset( $data['is_active'] ) ? absint( $data['is_active'] ) : 0;// default inactive.
 
-		$enable_directory = isset( $data['enable_directory'] ) ? absint( $data['enable_directory'] ) : 0;//default inactive
-		$directory_slug   = isset( $data['directory_slug'] ) ? sanitize_key( $data['directory_slug'] ) : '';//default inactive
+		$enable_directory = isset( $data['enable_directory'] ) ? absint( $data['enable_directory'] ) : 0;// default inactive.
+		$directory_slug   = isset( $data['directory_slug'] ) ? sanitize_key( $data['directory_slug'] ) : '';// default inactive.
 
 		update_post_meta( $post_id, '_bp_member_type_is_active', $is_active );
 
@@ -231,8 +257,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 
 		update_post_meta( $post_id, '_bp_member_type_enable_directory', $enable_directory );
 
-		//for directory slug
-
+		// for directory slug.
 		if ( $directory_slug ) {
 			update_post_meta( $post_id, '_bp_member_type_directory_slug', $directory_slug );
 		} else {
@@ -244,7 +269,7 @@ class BP_Member_Type_Generator_Admin_Edit_Screen_Helper {
 
 		global $post, $post_ID;
 
-		$update_message = $messages['post'];//make a copy of the post update message
+		$update_message = $messages['post'];// make a copy of the post update message.
 
 		$update_message[1] = sprintf( __( 'Member type updated.', 'bp-member-type-generator' ) );
 

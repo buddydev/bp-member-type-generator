@@ -2,27 +2,48 @@
 Contributors: buddydev,sbrajesh
 Tags: buddypress, member-type, bp-member-type
 Requires at least: 4.0
-Tested up to: 4.7.3
-Stable tag: 1.0.4
+Tested up to: 5.2
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-BuddyPress Member Type Generator allows site admins to create/manage member types from dashboard.
+BuddyPress Member Type Generator allows site admins to create/manage BUddyPress member types from dashboard.
 
 == Description ==
 
-BuddyPress Member Type Generator allows site admins to create and manage member types from dashboard.
+BuddyPress Member Type Generator allows site admins to create and manage BuddyPress member types from dashboard.
 A member type can be easily created, activated and deactivated from admin dashboard.
+
+It provides the simplest way to create and manage your member types.
 
 Features:
 
 *   Create/Edit/Delete Member Types  from WordPress dashboard 
 *   Bulk assign member type to users from the users list screen
-*   A member type can be marked active/deactive from the edit member type page(Only till BuddyPress 2.6.2, BuddyPress 2.7.0 does it out of the box )
+*   A member type can be marked active/deactive from the edit member type page
 
-**Support**
+= Pro version =
 
-Though we will keep an eye here, we may not be able to support via wordpress.org forums. For support, please use [BuddyDev Premium Forum](https://buddydev.com/support/forums/) or let us know your feedback via [blog comment](https://buddydev.com/buddypress/introducing-buddypress-member-type-generator/).
+Are you looking for more? *[BuddyPress Member Types Pro](https://buddydev.com/plugins/buddypress-member-types-pro)* is the best and most flexible BuddyPress Member Types solution available.
+It allows you to
+ * Assign member type on registration
+ * Conditional BuddyPress registration fields based on member types
+ * Assign roles based on member types
+ * Assign groups based on meber types
+ * Redirect to specific page(or profile tab) on login based on user's member type
+ * Redirect to specific page on activation
+ * User list filtering on directory(exclude/include users/member type as tabs on directory)
+ * Single and Multiple member type profile fields
+ * And a lot more. Please see [BuddyPress Member Types Pro](https://buddydev.com/plugins/buddypress-member-types-pro) for details.
+
+
+**Important links:-**
+1. [Support Forums](https://buddydev.com/support/forums/)
+2. [More BuddyPress Plugin](https://buddydev.com/plugins/)
+
+Looking to extend BuddyPress more, Please have a look at our
+1. [Free BuddyPress Plugin](https://buddydev.com/plugins/category/free-buddypress-plugins/)
+2. [Premium BuddyPress plugins](https://buddydev.com/plugins/category/buddypress-premium-plugins/)
 
 == Installation ==
 
@@ -34,12 +55,21 @@ Though we will keep an eye here, we may not be able to support via wordpress.org
 
 == Frequently Asked Questions ==
 
+= Does This plugin work without BuddyPress =
+No, It needs you to have BuddyPress installed and activated. Please make sure that you have BuddyPress enabled to use this plugin.
+
 = Does it detects the member types added via code =
 No, It will only list the member types that you add from dashboard. You don't need to use any code to register a new member type.
 
 = Will it Work With WordPress Mulitiste & BuddyPress? =
 
 Yes.
+
+= Where do I get Support? =
+We provide support via BuddyDev forums. For a better support response and assistance, Please use [BuddyDev Forums](https://buddydev.com/support/forums/).
+
+= I need more features, will you help? =
+If you need customization or extending the plugin, please use our [WordPress/BuddyPress plugin customization Service](https://buddydev.com/buddypress-plugin-customization-service/).
 
 == Screenshots ==
 
@@ -50,6 +80,9 @@ Yes.
 
 
 == Changelog ==
+= 1.0.5 =
+* Cleanup code
+* Tested with BuddyPress 4.3 & WordPress 5.2
 
 = 1.0.4 =
 * Make the member type post type to be editable by admin only. Props @jonathanmoorebcsorg for reporting.

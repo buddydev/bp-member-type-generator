@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: BuddyPress Member Type Generator
- * Version: 1.0.4
+ * Version: 1.0.5
  * Plugin URI: https://buddydev.com/plugins/bp-member-type-generator/
  * Author: BuddyDev
  * Author URI: https://BuddyDev.com
- * Description: Allows site admins to create/manage Member types from WordPress dashboard. Also, Includes functionality to bulk assign member type to users.
+ * Description: Allows site admins to create/manage Member types from WordPress dashboard. Also, includes functionality to bulk assign member type to users.
  * License: GPL2 or above
  */
 
@@ -13,13 +13,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit( 0 );
 }
 
+/**
+ * Main class.
+ */
 class BP_Member_Type_Generator {
 
+	/**
+	 * Singleton instance.
+	 *
+	 * @var BP_Member_Type_Generator
+	 */
 	private static $instance = null;
 
+	/**
+	 * Plugin dir path.
+	 *
+	 * @var string
+	 */
 	private $path;
+
+	/**
+	 * Plugin dir url.
+	 *
+	 * @var string
+	 */
 	private $url;
 
+	/**
+	 * Constructor.
+	 */
 	private function __construct() {
 
 		$this->path = plugin_dir_path( __FILE__ );
@@ -44,7 +66,6 @@ class BP_Member_Type_Generator {
 
 	/**
 	 * Load required files
-	 *
 	 */
 	public function load() {
 
@@ -55,11 +76,11 @@ class BP_Member_Type_Generator {
 
 		if ( is_admin() ) {
 
-			$files[] = 'core/admin/edit-helper.php'; //edit screen helper
-			$files[] = 'core/admin/list-helper.php';//member type list helper
+			$files[] = 'core/admin/edit-helper.php'; // edit screen helper.
+			$files[] = 'core/admin/list-helper.php';// member type list helper.
 
 			if ( version_compare( buddypress()->version, '2.7.0', '<' ) ) {
-				$files[] = 'core/admin/user-helper.php'; //user list helper for bulk manage
+				$files[] = 'core/admin/user-helper.php'; // user list helper for bulk manage.
 			}
 		}
 
@@ -80,8 +101,8 @@ class BP_Member_Type_Generator {
 	/**
 	 * Save plural label name to post meta
 	 *
-	 * @param int $post_id
-	 * @param string $name
+	 * @param int    $post_id post id.
+	 * @param string $name name.
 	 */
 	public function update_label( $post_id, $name ) {
 		update_post_meta( $post_id, '_bp_member_type_label_name', $name );
@@ -90,8 +111,8 @@ class BP_Member_Type_Generator {
 	/**
 	 * Save singular label for member type to post meta
 	 *
-	 * @param int $post_id
-	 * @param string $name
+	 * @param int    $post_id post id.
+	 * @param string $name name.
 	 */
 	public function update_singular_label( $post_id, $name ) {
 		update_post_meta( $post_id, '_bp_member_type_label_singular_name', $name );
@@ -100,18 +121,18 @@ class BP_Member_Type_Generator {
 	/**
 	 * Save the directory preference for the member type
 	 *
-	 * @param int $post_id
-	 * @param int $has_directory
+	 * @param int $post_id post id.
+	 * @param int $has_directory is directory enabled.
 	 */
 	public function update_has_directory( $post_id, $has_directory ) {
 		update_post_meta( $post_id, '_bp_member_type_has_directory', $has_directory );
 	}
 
 	/**
-	 *    Save member type name in the post meta
+	 * Save member type name in the post meta
 	 *
-	 * @param int $post_id
-	 * @param string $key
+	 * @param int    $post_id post id.
+	 * @param string $key key.
 	 */
 	public function update_member_type( $post_id, $key ) {
 		update_post_meta( $post_id, '_bp_member_type_name', $key );
@@ -120,10 +141,8 @@ class BP_Member_Type_Generator {
 	/**
 	 * Check if the member type already exists
 	 *
-	 * @global wpdb $wpdb
-	 *
-	 * @param int $post_id
-	 * @param string $key
+	 * @param int    $post_id post id.
+	 * @param string $key key.
 	 *
 	 * @return boolean
 	 */
@@ -143,8 +162,7 @@ class BP_Member_Type_Generator {
 	}
 }
 
-//instantiate
-
+// instantiate.
 BP_Member_Type_Generator::get_instance();
 
 /**

@@ -5,28 +5,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Admin/Network admin Users list helper
- *
  */
 class BP_Member_Type_Generator_Admin_User_List_Helper {
+
 	/**
+	 * Singleton.
 	 *
 	 * @var BP_Member_Type_Generator_Admin_User_List_Helper
 	 */
 	private static $instance = null;
 
+	/**
+	 * Post type.
+	 *
+	 * @var string
+	 */
 	private $post_type = '';
 
+	/**
+	 * Feedback message.
+	 *
+	 * @var string
+	 */
 	private $message = '';
 
+	/**
+	 * Constructor.
+	 */
 	private function __construct() {
 
 		$this->post_type = bp_member_type_generator()->get_post_type();
 
 		$this->init();
-
 	}
 
 	/**
+	 * Get singleton instance.
 	 *
 	 * @return BP_Member_Type_Generator_Admin_User_List_Helper
 	 */
@@ -40,15 +54,18 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 
 	}
 
+	/**
+	 * Init.
+	 */
 	private function init() {
-		//add bulk change button for WordPress Admin users screen
+		// add bulk change button for WordPress Admin users screen.
 		add_action( 'restrict_manage_users', array( $this, 'add_change_member_type_selectbox' ) );
-		///save the member type association
+		// save the member type association.
 		add_action( 'load-users.php', array( $this, 'update_member_type' ) );
-		//show notices
+		// show notices.
 		add_action( 'admin_notices', array( $this, 'notices' ) );
 		add_action( 'network_admin_notices', array( $this, 'notices' ) );
-		//for the network admin, we need to inject the bulk action in dom and add it via js
+		// for the network admin, we need to inject the bulk action in dom and add it via js.
 		add_action( 'in_admin_footer', array( $this, 'network_manage_users_footer' ) );
 
 
@@ -65,18 +82,23 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 	}
 
 
+	/**
+	 * Add change member type select box.
+	 *
+	 * @param string $where position.
+	 */
 	public function add_change_member_type_selectbox( $where = '' ) {
 
-		//Since wp will not pass whether it is for top/bottom, let us use static var to deremine position
+		// Since wp will not pass whether it is for top/bottom, let us use static var to deremine position.
 		static $position;
 
 		if ( ! isset( $position ) ) {
-			$position = 'top';//assume it will be called from top
+			$position = 'top';// assume it will be called from top.
 		} else {
 			$position = 'bottom';
 		}
 
-		//only admin/super admin
+		// only admin/super admin.
 		if ( ! current_user_can( 'edit_users' ) ) {
 			return;
 		}
@@ -110,13 +132,13 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 	 * Update User member type association
 	 */
 	public function update_member_type() {
-		//none of our actions are set
+		// none of our actions are set.
 		if ( empty( $_REQUEST['new_member_type_top'] ) && empty( $_REQUEST['new_member_type_bottom'] ) ) {
 			return;
 		}
 
 
-		//only admin/super admin
+		// only admin/super admin.
 		if ( ! current_user_can( 'edit_users' ) ) {
 			return;
 		}
@@ -137,9 +159,8 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 		$users = isset( $_REQUEST[ $input_name ] ) ? $_REQUEST[ $input_name ] : array();
 
 		if ( empty( $users ) ) {
-			return;//no user selected
+			return; // no user selected.
 		}
-		//
 
 		$users = wp_parse_id_list( $users );
 
@@ -148,7 +169,7 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 		$member_type_object = bp_get_member_type_object( $member_type );
 
 		if ( empty( $member_type_object ) ) {
-			return;//the member type does not seem to be registered
+			return; // the member type does not seem to be registered.
 		}
 
 		$updated = 0;
@@ -168,10 +189,13 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 			$url = admin_url( 'users.php' );
 		}
 
-		$redirect = add_query_arg( array(
-			'updated'                => $updated,
-			'bp-member-type-message' => urlencode( $this->message ),
-		), $url );
+		$redirect = add_query_arg(
+			array(
+				'updated'                => $updated,
+				'bp-member-type-message' => urlencode( $this->message ),
+			),
+			$url
+		);
 
 		wp_safe_redirect( $redirect );
 
@@ -181,8 +205,6 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 
 	/**
 	 * Render notices
-	 *
-	 * @return type
 	 */
 	public function notices() {
 
@@ -199,17 +221,15 @@ class BP_Member_Type_Generator_Admin_User_List_Helper {
 
 	/**
 	 * Work around to add bulk action to WordPress multisite users list screen in network
-	 *
-	 * @return type
 	 */
 	public function network_manage_users_footer() {
 
-		//wpmu does not provide an action to add the dd box
+		// wpmu does not provide an action to add the dd box.
 		if ( get_current_screen()->id != 'users-network' ) {
 			return;
 		}
 
-		//now let us add the snippet
+		// now let us add the snippet.
 		?>
         <div id='bp-member-type-box-wrapper' style='display: none;'>
 			<?php $this->add_change_member_type_selectbox( 'bottom' ); ?>

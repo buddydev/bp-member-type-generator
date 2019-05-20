@@ -5,19 +5,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Helper class to register the internal member type post type and the actual Member type
- *
  */
 class BP_Member_Type_Generator_Actions {
 
+	/**
+	 * Singleton instance.
+	 *
+	 * @var BP_Member_Type_Generator_Actions
+	 */
 	private static $instance = null;
 
+	/**
+	 * Constructor.
+	 */
 	private function __construct() {
-		//register internal post type used to handle the member type
+		// register internal post type used to handle the member type.
 		add_action( 'bp_init', array( $this, 'register_post_type' ) );
-		//register member type
+		// register member type.
 		add_action( 'bp_register_member_types', array( $this, 'register_member_type' ) );
 	}
 
+	/**
+	 * Get the singleton instance.
+	 *
+	 * @return BP_Member_Type_Generator_Actions
+	 */
 	public static function get_instance() {
 
 		if ( is_null( self::$instance ) ) {
@@ -32,7 +44,7 @@ class BP_Member_Type_Generator_Actions {
 	 */
 	public function register_post_type() {
 
-		//only register on the main bp site
+		// only register on the main bp site.
 		if ( is_multisite() && ! bp_is_root_blog() ) {
 			return;
 		}
@@ -52,7 +64,7 @@ class BP_Member_Type_Generator_Actions {
 				'not_found'          => __( 'No Member Type found', 'bp-member-type-generator' ),
 			),
 
-			'public'       => false,//this is a private post type, not accesible from front end
+			'public'       => false, // this is a private post type, not accesible from front end.
 			'show_ui'      => $is_admin,
 			'show_in_menu' => 'users.php',
 			//	'menu_position'			=> 60,
@@ -68,10 +80,9 @@ class BP_Member_Type_Generator_Actions {
 	 */
 	public function register_member_type() {
 
-		//$this->register_post_type();
+		// $this->register_post_type();
 		$is_root_blog = bp_is_root_blog();
-		//if we are not on the main bp site, switch to it before registering member type
-
+		// if we are not on the main bp site, switch to it before registering member type.
 		if ( ! $is_root_blog ) {
 			switch_to_blog( bp_get_root_blog_id() );
 		}
@@ -88,7 +99,7 @@ class BP_Member_Type_Generator_Actions {
 			$name      = get_post_meta( $post_id, '_bp_member_type_name', true );
 
 			if ( ! $is_active || ! $name ) {
-				continue;//if not active or no unique key, do not register
+				continue;// if not active or no unique key, do not register.
 			}
 
 			$enable_directory = get_post_meta( $post_id, '_bp_member_type_enable_directory', true );
@@ -110,7 +121,7 @@ class BP_Member_Type_Generator_Actions {
 					'name'          => get_post_meta( $post_id, '_bp_member_type_label_name', true ),
 					'singular_name' => get_post_meta( $post_id, '_bp_member_type_label_singular_name', true ),
 				),
-				'has_directory' => $has_dir, //only applies to bp 2.3+
+				'has_directory' => $has_dir, // only applies to bp 2.3+.
 			);
 
 		}
@@ -124,6 +135,11 @@ class BP_Member_Type_Generator_Actions {
 		}
 	}
 
+	/**
+	 * Get active member types.
+	 *
+	 * @return array
+	 */
 	private function get_active_member_types() {
 
 		global $wpdb;
