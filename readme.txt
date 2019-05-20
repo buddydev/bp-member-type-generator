@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, member-type, bp-member-type
 Requires at least: 4.0
 Tested up to: 5.2
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,7 +24,7 @@ Features:
 
 = Pro version =
 
-Are you looking for more? *[BuddyPress Member Types Pro](https://buddydev.com/plugins/buddypress-member-types-pro)* is the best and most flexible BuddyPress Member Types solution available.
+Are you looking for more? *[BuddyPress Member Types Pro](https://buddydev.com/plugins/buddypress-member-types-pro/)* is the best and most flexible BuddyPress Member Types solution available.
 It allows you to
  * Assign member type on registration
  * Conditional BuddyPress registration fields based on member types
@@ -34,7 +34,7 @@ It allows you to
  * Redirect to specific page on activation
  * User list filtering on directory(exclude/include users/member type as tabs on directory)
  * Single and Multiple member type profile fields
- * And a lot more. Please see [BuddyPress Member Types Pro](https://buddydev.com/plugins/buddypress-member-types-pro) for details.
+ * And a lot more. Please see [BuddyPress Member Types Pro](https://buddydev.com/plugins/buddypress-member-types-pro/) for details.
 
 
 **Important links:-**
@@ -80,9 +80,13 @@ If you need customization or extending the plugin, please use our [WordPress/Bud
 
 
 == Changelog ==
-= 1.0.5 =
+
+= 1.0.6 =
 * Cleanup code
 * Tested with BuddyPress 4.3 & WordPress 5.2
+
+= 1.0.5 =
+* Tested with BuddyPress 2.9.0 for compatibility
 
 = 1.0.4 =
 * Make the member type post type to be editable by admin only. Props @jonathanmoorebcsorg for reporting.
@@ -104,7 +108,7 @@ If you need customization or extending the plugin, please use our [WordPress/Bud
 * Supports BuddyPress 2.2 and BuddyPress 2.3.
 
 == Other Notes ==
-Want to know more about BuddyPress Member Type, please check this codex article on [Member Type](http://codex.buddypress.org/member-type)
+Want to know more about BuddyPress Member Type, please check this codex article on [Member Type](http://codex.buddypress.org/member-type/)
 
 Need even more details, visit my post on using [BuddyPress Member type as Pro]( http://buddydev.com/buddypress/using-buddypress-member-type-as-pro/)
 
